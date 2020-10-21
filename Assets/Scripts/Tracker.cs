@@ -2,35 +2,29 @@
 
 public class Tracker : MonoBehaviour
 {
-    public GameObject target;
-    /*private float range = 10;*/
-    // Start is called before the first frame update
-    void Start()
+    public GameObject Target;
+
+    public Vector2 DeadWindow;
+
+    public float FollowSpeed = 0.02f;
+    private Rect _rect;
+
+    private void OnDrawGizmos()
     {
-        
+        Gizmos.DrawWireCube(_rect.center, _rect.size);
+        // Target = GetComponent<GameObject>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void LateUpdate()
     {
-        /*float this.transform.position.x;
-        float this.transform.position.y;
-        float targetX = target.transform.position.x;
-        float targetY = target.transform.position.y;
-
-
-        if ((targetX - this.transform.position.x) > range)
+        _rect = new Rect((Vector2)transform.position - DeadWindow * 0.5f, DeadWindow);
+        if (!_rect.Contains(Target.transform.position))
         {
-            x = targetX - range;
-
-         else if ((targetY - this.transform.position.y) > range)
-        {
-            y = targetY - range;
+            var z = transform.position.z;
+            var nextPos = Vector3.Lerp(transform.position, Target.transform.position, 0.02f);
+            nextPos.z = z;
+            transform.position = nextPos;
         }
-
-
-        this.transform.position = new Vector3(x, y, this.transform.position.z);*/
-
-        this.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, this.transform.position.z);
-        }
+    }
 }
