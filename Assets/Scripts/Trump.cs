@@ -4,6 +4,7 @@
 public class Trump : MonoBehaviour
 {
     public int MaxSpeed = 3;
+    public bool zqsd = false;
 
     // Autres scripts
     private SpriteRenderer spriteRenderer;
@@ -30,26 +31,26 @@ public class Trump : MonoBehaviour
         var maxDistancePerFrame = MaxSpeed;
         Vector3 move = Vector3.zero;
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (!zqsd && Input.GetKey(KeyCode.RightArrow) || zqsd && Input.GetKey(KeyCode.D))
         {
             animator.SetTrigger("Right");
             animator.SetFloat("Speed", 1);
             move += Vector3.right * maxDistancePerFrame;
         }
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (!zqsd && Input.GetKey(KeyCode.LeftArrow) || zqsd && Input.GetKey(KeyCode.Q))
         {
             animator.SetTrigger("Left");
             animator.SetFloat("Speed", 1);
             move += Vector3.left * maxDistancePerFrame;
         }
 
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (!zqsd && Input.GetKey(KeyCode.UpArrow) || zqsd && Input.GetKey(KeyCode.Z))
         {
             animator.SetTrigger("Up");
             animator.SetFloat("Speed", 1);
             move += Vector3.up * maxDistancePerFrame;
         }
-        else if (Input.GetKey(KeyCode.DownArrow))
+        else if (!zqsd && Input.GetKey(KeyCode.DownArrow) || zqsd && Input.GetKey(KeyCode.S))
         {
             animator.SetTrigger("Down");
             animator.SetFloat("Speed", 1);

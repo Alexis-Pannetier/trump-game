@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Item
+  - FxTemporaire
+  - Layout
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Player
   - Item
   - Layout
-  - 
+  - Ball
   - 
   - 
   - 
