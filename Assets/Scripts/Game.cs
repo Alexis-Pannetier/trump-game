@@ -19,6 +19,7 @@ public class Game : MonoBehaviour
         public GameObject ScoreContainer;
     }
 
+    
     public GameObject Ball;
     public TeamData Orange;
     public TeamData Blue;
@@ -26,12 +27,13 @@ public class Game : MonoBehaviour
     public GameObject GameOverText;
     public GameObject GoalText;
 
+    private GameObject B;
     private float nextReset = Mathf.Infinity;
 
     void Start()
     {
         instance = this;
-        Instantiate(Ball);
+        B = Instantiate(Ball);
         ResetPosition();
     }
 
@@ -39,11 +41,18 @@ public class Game : MonoBehaviour
     {
         GameOverText.SetActive(false);
         GoalText.SetActive(false);
-        var ballBody = Ball.GetComponent<Rigidbody2D>();
+        var ballBody = B.GetComponent<Rigidbody2D>();
         ballBody.position = Vector2.zero;
         ballBody.velocity = Vector2.zero;
+        ballBody.bodyType = RigidbodyType2D.Dynamic;
         Orange.Player.GetComponent<Rigidbody2D>().position = Vector2.zero + Vector2.left * 3;
         Blue.Player.GetComponent<Rigidbody2D>().position = Vector2.zero + Vector2.right * 3;
+    }
+
+    private void FreezePosition()
+    {
+        B.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        B.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
     void Update()
@@ -66,6 +75,7 @@ public class Game : MonoBehaviour
         Side scored = Side.Blue;
         if (side == Side.Orange)
         {
+            FreezePosition();
             Blue.Score++;
             if (Blue.ScoreContainer.transform.childCount > Blue.Score - 1)
             {
@@ -74,6 +84,7 @@ public class Game : MonoBehaviour
         }
         if (side == Side.Blue)
         {
+            FreezePosition();
             Orange.Score++;
             if (Orange.ScoreContainer.transform.childCount > Orange.Score - 1)
             {
